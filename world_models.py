@@ -11,6 +11,7 @@ import tensorflow.contrib.slim as slim
 from datetime import datetime
 import os
 
+# Wrapper reference : https://stackoverflow.com/questions/47745027/tensorflow-how-to-obtain-intermediate-cell-states-c-from-lstmcell-using-dynam
 class Wrapper(tf.nn.rnn_cell.RNNCell):
     def __init__(self, inner_cell):
         super(Wrapper, self).__init__()
