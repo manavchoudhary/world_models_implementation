@@ -5,4 +5,4 @@ Also the encoder is a simple fully connected network and will be converted into 
 
 ## Results
 Results of this implementation on [CartPole-v0](https://gym.openai.com/envs/CartPole-v0/) Open AI Gym environment. More results to follow.
-![Architecture of Value Iteration Network](Experiments/World_models_V1_results.png)
+![World Models experiment on Cartpole_V0](Experiments/World_models_V1_results.png)
