@@ -2,6 +2,7 @@ import tensorflow as tf
 import yaml
 import numpy as np
 import gym
+import roboschool
 import matplotlib.pyplot as plt
 import pickle
 import copy
@@ -96,8 +97,9 @@ class agent():
 
         self.target_v_flat = tf.reshape(self.target_v, [-1, 1],)
         self.advantage_flat = tf.reshape(self.advantage, [-1,1])
+        self.action_taken_flat = tf.reshape(self.action_taken, [-1, self.action_size])
         value_loss = 0.5*tf.reduce_mean(tf.square(self.target_v_flat - self.value_fn))
-        policy_loss = -tf.reduce_mean(tf.log(tf.reduce_sum(self.policy*self.action_taken)+1e-9)*self.advantage_flat)
+        policy_loss = -tf.reduce_mean(tf.log(tf.reduce_sum(self.policy*self.action_taken_flat)+1e-9)*self.advantage_flat)
         entropy = -tf.reduce_mean(self.policy*tf.log(self.policy+1e-9))
 
         env_model_loss = 0.5*tf.reduce_mean(tf.square(env_model_predicted_state[:, 1:, :] - self.state_encoder(self.state_input[:, 1:, :], reuse_weights=True)))
@@ -221,6 +223,9 @@ def train(agent):
 
 def main():
     # env = gym.make('correlatedbandit-v0')
+    # env = gym.make('Ant-v2')
+    # env = gym.make('RoboschoolAnt-v1')
+    # env = gym.make('Humanoid-v2')
     env = gym.make('CartPole-v0')
     env.reset()
     num_actions = env.action_space.n
